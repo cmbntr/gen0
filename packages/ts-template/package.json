@@ -1,0 +1,44 @@
+{
+  "name": "@cmbntr/ts-template",
+  "version": "0.1.0-dev-1",
+  "author": "Michael Locher <cmbntr@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmbntr/gen0.git",
+    "directory": "packages/ts-template"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**",
+    "src/**"
+  ],
+  "scripts": {
+    "clean": "rimraf lib docs/api",
+    "start": "run-s clean develop",
+    "develop": "run-p watch:*",
+    "watch:type": "tsc --noEmit --watch",
+    "watch:jest": "jest --watch",
+    "test": "jest --passWithNoTests",
+    "test:cov": "jest --passWithNoTests --coverage",
+    "build": "run-s clean build:step:*",
+    "build:production": "cross-env NODE_ENV=production run-s build",
+    "build:step:types": "tsc --emitDeclarationOnly",
+    "build:step:js": "babel src --out-dir lib --extensions \".ts,.tsx,.js,.jsx\" --source-maps inline",
+    "lint": "eslint \"src/**\"",
+    "type": "tsc --noEmit",
+    "format": "eslint \"src/**\" --fix",
+    "prepare": "run-s build:production test lint doc",
+    "preversion": "run-s prepare",
+    "doc": "typedoc --out docs/api --mode modules --excludeNotExported",
+    "repl": "ts-node --project tsconfig.json",
+    "node": "ts-node --project tsconfig.json src/index.ts"
+  },
+  "devDependencies": {
+    "@cmbntr/gen0-tools": "^0.1.0-dev-1"
+  }
+}

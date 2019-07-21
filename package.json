@@ -1,0 +1,22 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.15.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "format": "lerna run format",
+    "doc": "lerna run doc",
+    "lint": "lerna run lint",
+    "checks": "run-s clean build test lint doc",
+    "bump": "lerna version --no-git-tag-version --no-push --preid dev prerelease",
+    "bump:ask": "lerna version --no-git-tag-version --no-push --preid dev"
+  },
+  "seeAlso": "https://gist.github.com/davidbarral/97763338fdbc2bbcc4f04c459315a11c/"
+}
